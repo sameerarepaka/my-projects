@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html> 
+<head>      
+    <title>Person List</title>   
+</head> 
+<body>      
+    <h1>Person Information</h1>
+    <a href="{% url 'insert' %}"> 
+        <button>Inserting Data</button> 
+    </a> 
+    <form method="GET"> 
+        <label for="name">Name</label> 
+        <input type="text" name="name" value="{{ request.GET.name|default_if_none:'' }}">         
+        <label for="min_age">Min Age</label> 
+        <input type="number" name="min_age" value="{{ request.GET.min_age|default_if_none:'' }}">        
+        <label for="max_age">Max Age</label> 
+        <input type="number" name="max_age" value="{{ request.GET.max_age|default_if_none:'' }}">      
+        <label for="email">Email</label> 
+        <input type="text" name="email" value="{{ request.GET.email|default_if_none:'' }}"> 
+        <button type="submit">Filter</button> 
+    </form> 
+    <h2>Filtered Results:</h2> 
+    <ul> 
+        {% for person in persons %} 
+            <li>{{ person.name }} - {{ person.age }} - {{ person.email }}</li> 
+        {% empty %} 
+            <li>No results found</li> 
+        {% endfor %} 
+    </ul> 
+</body> 
+</html>
